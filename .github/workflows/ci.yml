@@ -34,18 +34,11 @@ jobs:
 
   # Stage 2 : Build image Docker
   build:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/build-push-action@v5
-        with:
-          context: ./app
-          push: false
-          tags: devops-app:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+  needs: test
+  uses: ./.github/workflows/reusable-docker.yml
+  with:
+    image-name: devops-app
+    context: ./app
 
   # Stage 3 : Scan de sécurité
   security:
@@ -70,3 +63,27 @@ jobs:
     environment: production
     steps:
       - run: echo "Deploying version ${{ github.sha }}..."
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - run: echo "Deploying to staging..."
+
+  deploy-production:
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - run: echo "Deploying to production..."
+
+  secrets:
+    steps:
+      - name: Use secrets
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "Secrets are masked in logs"
+          echo "DB_PASSWORD length: ${#DB_PASSWORD}"
