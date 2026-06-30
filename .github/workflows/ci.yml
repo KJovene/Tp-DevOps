@@ -69,17 +69,19 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     steps:
+      - name: Use secrets
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "Secrets are masked in logs"
+          echo "DB_PASSWORD length: ${#DB_PASSWORD}"
       - run: echo "Deploying to staging..."
 
   deploy-production:
     needs: deploy-staging
     runs-on: ubuntu-latest
     environment: production
-    steps:
-      - run: echo "Deploying to production..."
-
-  secrets:
-    runs-on: ubuntu-latest
     steps:
       - name: Use secrets
         env:
@@ -88,3 +90,4 @@ jobs:
         run: |
           echo "Secrets are masked in logs"
           echo "DB_PASSWORD length: ${#DB_PASSWORD}"
+      - run: echo "Deploying to production..."
