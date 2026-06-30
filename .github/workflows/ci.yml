@@ -34,11 +34,11 @@ jobs:
 
   # Stage 2 : Build image Docker
   build:
-  needs: test
-  uses: ./.github/workflows/reusable-docker.yml
-  with:
-    image-name: devops-app
-    context: ./app
+    needs: test
+    uses: ./.github/workflows/reusable-docker.yml
+    with:
+      image-name: devops-app
+      context: ./app
 
   # Stage 3 : Scan de sécurité
   security:
