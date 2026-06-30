@@ -79,6 +79,7 @@ jobs:
       - run: echo "Deploying to production..."
 
   secrets:
+    runs-on: ubuntu-latest
     steps:
       - name: Use secrets
         env:
