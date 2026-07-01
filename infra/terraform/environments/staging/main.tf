@@ -29,7 +29,7 @@ resource "docker_network" "main" {
 }
 
 module "webapp" {
-  source      = "../../webapp"
+  source      = "../../modules/webapp"
   app_name    = var.app_name
   environment = local.scoped_environment
   port        = local.scoped_web_port_start
@@ -38,7 +38,7 @@ module "webapp" {
 }
 
 module "database" {
-  source      = "../../database"
+  source      = "../../modules/database"
   app_name    = var.app_name
   environment = local.scoped_environment
   db_password = var.db_password

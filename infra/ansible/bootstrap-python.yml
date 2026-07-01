@@ -1,0 +1,9 @@
+- name: Préparer les conteneurs web pour Ansible
+  hosts: webservers
+  gather_facts: false
+
+  tasks:
+    - name: Installer Python si absent
+      raw: test -x /usr/bin/python3 || apk add --no-cache python3
+      register: bootstrap_python
+      changed_when: bootstrap_python.stdout | length > 0

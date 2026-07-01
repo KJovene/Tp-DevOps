@@ -1,0 +1,15 @@
+server {
+    listen 80 default_server;
+    server_name _;
+    root {{ nginx_web_root }};
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location /health {
+        default_type application/json;
+        return 200 '{"status":"ok","app":"{{ app_name }}","environment":"{{ app_environment }}","host":"{{ inventory_hostname }}"}';
+    }
+}

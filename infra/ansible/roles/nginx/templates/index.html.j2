@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ app_name }} - {{ app_environment }}</title>
+  </head>
+  <body>
+    <h1>{{ app_name }}</h1>
+    <p>Environnement : {{ app_environment }}</p>
+    <p>Conteneur : {{ inventory_hostname }}</p>
+    <p>URL publique : {{ public_url }}</p>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+- import_playbook: bootstrap-python.yml
+
+- name: Configurer les serveurs web provisionnés par Terraform
+  hosts: webservers
+  gather_facts: false
+  roles:
+    - base
+    - nginx

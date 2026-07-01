@@ -1,0 +1,28 @@
+- name: Vérifier que le répertoire web existe
+  file:
+    path: "{{ nginx_web_root }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Déployer la configuration Nginx
+  template:
+    src: default.conf.j2
+    dest: "{{ nginx_conf_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: reload nginx
+
+- name: Valider la configuration Nginx
+  command: nginx -t
+  changed_when: false
+
+- name: Déployer la page d'accueil
+  template:
+    src: index.html.j2
+    dest: "{{ nginx_web_root }}/index.html"
+    owner: root
+    group: root
+    mode: "0644"

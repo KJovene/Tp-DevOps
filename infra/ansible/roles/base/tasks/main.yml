@@ -1,0 +1,27 @@
+- name: Installer les paquets d'exploitation
+  apk:
+    name: "{{ base_packages }}"
+    state: present
+    update_cache: true
+
+- name: Créer le répertoire de configuration applicative
+  file:
+    path: "{{ app_config_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Déployer le fichier d'environnement applicatif
+  copy:
+    content: |
+      APP_NAME={{ app_name }}
+      APP_ENV={{ app_environment }}
+      APP_LOG_LEVEL={{ app_log_level }}
+      PUBLIC_URL={{ public_url }}
+      DATABASE_HOST={{ database_host }}
+      DATABASE_PORT={{ database_port }}
+    dest: "{{ app_config_dir }}/.env"
+    owner: root
+    group: root
+    mode: "0640"

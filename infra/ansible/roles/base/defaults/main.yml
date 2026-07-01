@@ -1,0 +1,5 @@
+base_packages:
+  - curl
+  - tzdata
+
+app_config_dir: /opt/app

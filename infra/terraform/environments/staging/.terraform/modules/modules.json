@@ -1,1 +1,1 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"database","Source":"../../database","Dir":"../../database"},{"Key":"webapp","Source":"../../webapp","Dir":"../../webapp"}]}
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"database","Source":"../../modules/database","Dir":"../../modules/database"},{"Key":"webapp","Source":"../../modules/webapp","Dir":"../../modules/webapp"}]}
