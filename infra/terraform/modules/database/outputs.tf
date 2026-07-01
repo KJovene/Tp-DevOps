@@ -6,3 +6,10 @@ output "connection_string" {
 output "container_id" {
   value = docker_container.db.id
 }
+
+output "ansible_host" {
+  value = {
+    name = docker_container.db.name
+    port = var.db_port
+  }
+}

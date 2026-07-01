@@ -1,21 +1,21 @@
-all:
-  vars:
-    ansible_connection: docker
-    ansible_python_interpreter: /usr/bin/python3
-    app_name: devops-app
-    app_environment: staging
-    app_log_level: debug
-    database_host: devops-app-db-staging-staging
-    database_port: 5432
-
-  children:
-    webservers:
-      hosts:
-        devops-app-staging-staging-0:
-          public_url: http://localhost:8100
-        devops-app-staging-staging-1:
-          public_url: http://localhost:8101
-
-    databases:
-      hosts:
-        devops-app-db-staging-staging:
+"all":
+  "children":
+    "databases":
+      "hosts":
+        "devops-app-db-staging-dev": {}
+    "webservers":
+      "hosts":
+        "devops-app-staging-dev-0":
+          "public_port": 8090
+          "public_url": "http://localhost:8090"
+        "devops-app-staging-dev-1":
+          "public_port": 8091
+          "public_url": "http://localhost:8091"
+  "vars":
+    "ansible_connection": "docker"
+    "ansible_python_interpreter": "/usr/bin/python3"
+    "app_environment": "staging"
+    "app_log_level": "info"
+    "app_name": "devops-app"
+    "database_host": "devops-app-db-staging-dev"
+    "database_port": 5443
